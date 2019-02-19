@@ -1,2 +1,2 @@
-# garbage-robot
-Garbage for everyone!
+# coaco-robot
+Cold drinks for everyone!
