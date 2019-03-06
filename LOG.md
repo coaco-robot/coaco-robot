@@ -26,3 +26,21 @@
 * Read up more on ROS and it's inner workings.
 * Edit the poster.
 * Find out how to calibrate camera's.
+
+## 06/03/2019
+### Planned
+* [#7](https://github.com/coaco-robot/coaco-robot/issues/7) Basic wheel and gripper control.
+* [#12](https://github.com/coaco-robot/coaco-robot/issues/12) Detect region of interest.
+* [#19](https://github.com/coaco-robot/coaco-robot/issues/19) Calibrate the raspicam and thermal cam.
+* [#21](https://github.com/coaco-robot/coaco-robot/issues/21) Create Thermal Cam node.
+* Edit the poster.
+
+### Achieved
+* Read up more on ROS and it's inner workings.
+* Find out how to calibrate camera's.
+* [#21](https://github.com/coaco-robot/coaco-robot/issues/21) Create Thermal Cam node.
+
+### Unachieved
+* Edit the poster.
+
+### To do for next session
