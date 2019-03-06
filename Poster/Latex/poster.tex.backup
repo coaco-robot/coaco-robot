@@ -61,20 +61,25 @@
 %COLUMN 1
 	\begin{column}{.49\textwidth}
 	\justifying
-	{\bfseries Het idee}
+	{\bfseries Title 1}
 	
-	Onze robot zal blikjes die op kamertemperatuur zijn zoeken, oppakken, en in de pullenbak plaatsen.
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer a facilisis lorem. Vivamus nulla ligula, facilisis quis tempor nec, laoreet a neque. Ut eu viverra ligula. Pellentesque lobortis lectus vitae pharetra dictum. Vestibulum lacus urna, congue sed diam non, condimentum fringilla enim. 
 
-	Hiervoor gaat het gebruik maken van deze stappen:
-	\begin{figure}
-	 \begin{beamercolorbox}{whitebox}
-	  \centering
-	  \includegraphics[width=0.9\textwidth]{../../Docs/general_flow.pdf}
-	  \caption{Flowchart van het proces}
-	 \end{beamercolorbox}
-
-	\end{figure}
-
+	\begin{itemize}
+		\item some item
+        \item other item
+			\begin{itemize}
+			\item some item
+			\item other item
+				\begin{itemize}
+			\item more items 
+				\end{itemize}
+			\item ...
+			\end{itemize}
+		\item more items 
+		\item ...
+	\end{itemize}
+           	
 	\vspace{0.5em}
 	Aenean ullamcorper vestibulum arcu a porta. Nulla a sapien risus. Aliquam purus mauris, accumsan eget diam id, fringilla sodales dolor. Nullam ullamcorper metus urna, ut tempus velit fringilla id. 
 	
