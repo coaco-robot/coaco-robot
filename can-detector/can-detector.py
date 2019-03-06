@@ -94,18 +94,16 @@ if __name__ == "__main__":
     # orig = cv2.imread(args.image_path)
     cap = cv2.VideoCapture('video_small.mp4')
 
-    counter = 0
     while cap.isOpened():
         ret, frame = cap.read()
 
         if not ret:
-            print("Can't receive frame (stream end?). Exiting ...")
+            # End of video
             break
 
         frame_out, bb = detect_can(frame)
 
         cv2.imshow("Can", frame_out)
         cv2.waitKey(3)
-        counter += 1
 
     cap.release()
