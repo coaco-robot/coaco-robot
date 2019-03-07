@@ -74,3 +74,6 @@ devel_isolated/
 *.mtc1
 *.out
 *.synctex.gz
+*.tex.backup
+*.nav
+*.snm

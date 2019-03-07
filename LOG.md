@@ -26,3 +26,27 @@
 * Read up more on ROS and it's inner workings.
 * Edit the poster.
 * Find out how to calibrate camera's.
+
+## 06/03/2019
+### Planned
+* [#7](https://github.com/coaco-robot/coaco-robot/issues/7) Basic wheel and gripper control.
+* [#11](https://github.com/coaco-robot/coaco-robot/issues/11) Read the feed of the distance sensor.
+* [#12](https://github.com/coaco-robot/coaco-robot/issues/12) Detect region of interest.
+* [#19](https://github.com/coaco-robot/coaco-robot/issues/19) Calibrate the raspicam and thermal cam.
+* [#21](https://github.com/coaco-robot/coaco-robot/issues/21) Create Thermal Cam node.
+* Edit the poster.
+
+### Achieved
+* Read up more on ROS and it's inner workings.
+* Find out how to calibrate camera's.
+* [#11](https://github.com/coaco-robot/coaco-robot/issues/11) Read the feed of the distance sensor.
+* [#12](https://github.com/coaco-robot/coaco-robot/issues/12) Detect region of interest.
+* [#21](https://github.com/coaco-robot/coaco-robot/issues/21) Create Thermal Cam node.
+
+### Unachieved
+* [#7](https://github.com/coaco-robot/coaco-robot/issues/7) Basic wheel and gripper control.
+* [#19](https://github.com/coaco-robot/coaco-robot/issues/19) Calibrate the raspicam and thermal cam.
+* Edit the poster.
+
+### To do for next session
+* [#23](https://github.com/coaco-robot/coaco-robot/issues/23) [#24](https://github.com/coaco-robot/coaco-robot/issues/24) [#25](https://github.com/coaco-robot/coaco-robot/issues/25)  Find models to 3d printer
