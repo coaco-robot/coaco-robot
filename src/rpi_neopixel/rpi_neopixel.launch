@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="rpi_neopixel" name="rpi_neopixel" type="neopixel.py" output="screen" launch-prefix="sudo -E PYTHONPATH=$(env PYTHONPATH)">
+    </node>
+</launch>
