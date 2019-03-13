@@ -3,7 +3,7 @@ import cv2.aruco as aruco
 
 
 def findMarkers(img_in, img_out):
-    aruco_dict = aruco.Dictionary_get(aruco.DICT_6X6_100)
+    aruco_dict = aruco.Dictionary_get(aruco.DICT_5X5_50)
     parameters = aruco.DetectorParameters_create()
 
     corners, ids, rejectedImgPoints = aruco.detectMarkers(
