@@ -81,3 +81,5 @@ devel_isolated/
 *.nav
 *.snm
 
+#mypy 
+*.mypy_cache/
