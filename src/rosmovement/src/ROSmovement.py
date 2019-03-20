@@ -5,12 +5,13 @@ from rosmovement.msg import movMsg
 from geometry_msgs.msg import Twist
 
 velocity_publisher=False
+simulation=False
 
 def processMovement(msg):
     PI = 3.1415926535897
     global velocity_publisher
+    global simulation
     # Receiveing the user's input
-    print("Let's move your robot")
     speed = 1
     rspeed = 30
     distance = msg.distance
@@ -46,14 +47,13 @@ def processMovement(msg):
     
     if (distance!=0):
         if (distance < 0):
-            vel_msg.linear.x = -abs(speed)
+            vel_msg.linear.x = -speed
         if (distance > 0):
-            speed *= -1
-            vel_msg.linear.x = abs(speed)
+            vel_msg.linear.x = speed
     
         current_distance = 0
         t0 = rospy.Time.now().to_sec()
-        while(current_distance < abs(distance)):
+        while(abs(current_distance) < abs(distance)):
             velocity_publisher.publish(vel_msg)
             t1 = rospy.Time.now().to_sec()
             current_distance = speed * (t1 - t0)
@@ -68,8 +68,10 @@ def move():
     rospy.init_node('rosmovement', anonymous=True)
     rospy.Subscriber("move_it", movMsg, processMovement)
     global velocity_publisher 
-    velocity_publisher = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)
-
+    if simulation:
+        velocity_publisher = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)
+    else:
+        velocity_publisher = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
     rospy.spin()
 
 if __name__ == '__main__':
