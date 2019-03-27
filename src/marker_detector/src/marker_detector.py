@@ -30,14 +30,16 @@ class MarkerDetector:
         array = np.fromstring(data, np.uint8)
         image = cv2.imdecode(array, cv2.IMREAD_COLOR)
 
-        ids, rects = self.detector.findMarkers(image)
+        ids, rects, img_out = self.detector.findMarkers(image)
+        img_out = np.array(cv2.imencode('.jpg', img_out)[1]).tostring()
 
         for identifier, rect in zip(ids, rects):
-            msg = self.construct_msg(identifier, rect)
+            msg = self.construct_msg(identifier, rect, img_out)
             self.bb_pub.publish(msg)
 
-    def construct_msg(self, identifier, rect):
+    def construct_msg(self, identifier, rect, img_out):
         msg = MarkerDetection()
+        msg.img_out = img_out
         msg.id = identifier
         msg.bb_x = rect.x
         msg.bb_y = rect.y
