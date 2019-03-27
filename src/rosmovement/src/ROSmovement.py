@@ -66,7 +66,7 @@ def processMovement(msg):
 def move():
     # Starts a new node
     rospy.init_node('rosmovement', anonymous=True)
-    rospy.Subscriber("move_it", movMsg, processMovement)
+    rospy.Subscriber("move_it", movMsg, processMovement, queue_size=1)
     global velocity_publisher 
     if simulation:
         velocity_publisher = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)
