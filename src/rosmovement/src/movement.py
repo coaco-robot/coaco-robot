@@ -6,9 +6,9 @@ from geometry_msgs.msg import Twist
 
 
 velocity_publisher=False
-simulation=True
-anglefactor = 0.5
-distancefactor = 0.02
+simulation=False
+anglefactor = 0.45
+distancefactor = 0.04/8.8
  
 
 def processMovement(msg):
@@ -18,7 +18,7 @@ def processMovement(msg):
     global velocity_publisher
     global simulation
     # Receiveing the user's input
-    speed = 1
+    speed = 0.1
     rspeed = 30
     distance = msg.distance * distancefactor
     angle = msg.angle * anglefactor
