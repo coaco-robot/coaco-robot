@@ -7,6 +7,9 @@ from state_machine import StateMachine
 
 class Controller(object):
     def __init__(self):
+        # Init node
+        rospy.init_node("controller", log_level=rospy.DEBUG)
+
         # Init state machine
         self._state_machine = StateMachine(States.INIT, self.init_robot)
         self._state_machine.add_state(States.LOOK_FOR_CAN, self.look_for_can)
@@ -38,7 +41,7 @@ class Controller(object):
         rospy.loginfo("Dropping can")
 
     def sleep(self):
-        rospy.loginfo("Sleeping for {}".format(SLEEP_TIME))
+        rospy.loginfo("Sleeping for {} seconds".format(SLEEP_TIME))
         time.sleep(SLEEP_TIME)
 
     def run(self):
