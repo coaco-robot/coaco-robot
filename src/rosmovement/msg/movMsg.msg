@@ -1,2 +1,2 @@
-int64 distance
-int64 direction
+float64 distance
+int64 angle
