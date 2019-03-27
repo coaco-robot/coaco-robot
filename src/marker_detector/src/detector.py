@@ -13,15 +13,15 @@ class Detector:
         corners, ids, rejectedImgPoints = aruco.detectMarkers(
                     img_in, aruco_dict, parameters=parameters)
         # print(corners, ids, rejectedImgPoints)
-        print("Using dict: {:d}".format(self.dict))
         print(ids)
         print(corners)
         rects = []
         img_out = img_in
         for array in corners:
-            rect = cv2.boundingRect(array)
+            x,y,w,h = cv2.boundingRect(array)
+	    rect = (x,y,w,h)
             rects.append(rect)
-            cv2.rectangle(img_out, rect, (0, 255, 0), 3)
+            cv2.rectangle(img_out, (x,y), (x+w, y+h), (0,255,0), 3)
 
         return ids, rects, img_out
 
