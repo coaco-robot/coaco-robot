@@ -46,10 +46,7 @@ class Controller(object):
 
     def run(self):
         for i in range(0, 20):
-            self.next_state()
-
-    def next_state(self):
-        self._state_machine.next_state()
+            self._state_machine.next_state()
 
 # Start controller
 if __name__ == "__main__":
