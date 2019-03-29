@@ -83,3 +83,6 @@ devel_isolated/
 
 #mypy 
 *.mypy_cache/
+
+#swapfiles
+*.swp
