@@ -38,10 +38,10 @@ class Movement:
         vel_msg.angular.z = 0
         
         if msg.open == 2:
-            grab_msg.data = 150
+            grab_msg.data = 60
             self.grabber_publisher.publish(grab_msg)
         elif msg.open == 1:
-            grab_msg.data = 50
+            grab_msg.data = 125
             self.grabber_publisher.publish(grab_msg)
 
         angular_speed = self.rspeed*2*math.pi/360
