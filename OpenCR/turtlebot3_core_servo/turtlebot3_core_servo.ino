@@ -20,8 +20,8 @@
 #include <Servo.h>
 #include <std_msgs/UInt8.h>
 #define SERVO_PIN 9
-#define SERVO_MIN 0
-#define SERVO_MAX 170
+#define SERVO_MIN 50
+#define SERVO_MAX 125
 
 Servo grabber;
 std_msgs::UInt8 grabber_msg;
