@@ -12,16 +12,19 @@ class CamFeeder:
 
         # Subscribe to raspicam feed
         self.cam_subscriber = rospy.Subscriber('raspicam_node/image/compressed', CompressedImage, self.cam_callback)
-        self.term_subscriber = rospy.Subscriber('seek/image/compressed', CompressedImage, self.callback)
+        self.term_subscriber = rospy.Subscriber('seek/image/compressed', CompressedImage, self.term_callback)
 
         # Create publisher with detected frames
         self.cam_pub = rospy.Publisher('cam_feeder/image', CamFeed, queue_size=1)
-        self.term_pub = rospy.Publisher('cam_feeder/seek', CamFeed, queue_size=1)
+        self.seek_pub = rospy.Publisher('cam_feeder/seek', CamFeed, queue_size=1)
 
         # List
         self.list = []
         self.current_id_cam = 0
         self.counter_cam = 0
+
+        self.current_id_term = 0
+        self.counter_term = 0
 
     def term_callback(self, data):
         if self.counter_term == 10:
@@ -33,7 +36,7 @@ class CamFeeder:
             # Republish with id
             msg = self.construct_msg(img, self.current_id_term)
             self.current_id_term += 1
-            self.term_subscriber.term_pub(msg)
+            self.seek_pub.publish(msg)
         
         else:
             self.counter_cam += 1
@@ -52,7 +55,7 @@ class CamFeeder:
             # Republish with id
             msg = self.construct_msg(img, self.current_id_cam)
             self.current_id_cam += 1
-            self.cam_subscriber.seek_pub(msg)
+            self.cam_pub.publish(msg)
         
         else:
             self.counter_cam += 1
@@ -61,7 +64,7 @@ class CamFeeder:
     def construct_msg(self, image, img_id):
         """ Construct message of type CamFeed """
         msg = CamFeed()
-        msg.image = self.cv2str()
+        msg.image = self.cv2str(image)
         msg.id = img_id
 
         return msg
