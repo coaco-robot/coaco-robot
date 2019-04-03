@@ -4,6 +4,10 @@ from enum import Enum
 
 SLEEP_TIME = 3 # seconds
 SLEEP_LOOK_FOR_CAN = 3 # seconds
+SLEEP_MOVE_TOWARDS_CAN = 3 # seconds
+CLOSE_GRABBER = 1
+OPEN_GRABBER = 2
+NOTHING_GRABBER = 0
 
 class States(Enum):
     INIT = 0
