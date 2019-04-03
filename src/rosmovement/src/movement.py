@@ -37,10 +37,10 @@ class Movement:
         vel_msg.angular.y = 0
         vel_msg.angular.z = 0
         
-        if msg.open == 2:
+        if msg.open == 2: # Open the gripper
             grab_msg.data = 60
             self.grabber_publisher.publish(grab_msg)
-        elif msg.open == 1:
+        elif msg.open == 1: # Close the gripper
             grab_msg.data = 125
             self.grabber_publisher.publish(grab_msg)
 
