@@ -2,7 +2,8 @@
 from enum import Enum
 
 
-SLEEP_TIME = 3 # seconds 
+SLEEP_TIME = 3 # seconds
+SLEEP_LOOK_FOR_CAN = 3 # seconds
 
 class States(Enum):
     INIT = 0

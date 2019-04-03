@@ -13,27 +13,28 @@ class Controller(object):
     def __init__(self):
         # Init node
         rospy.init_node("controller", log_level=rospy.DEBUG)
-        self._distance_sensor = rospy.Subscriber("distance_sensor",
-                                                 std_msgs.msg.Float32,
-                                                 self.process_distance_sensor)
-        self._seek_thermal = rospy.Subscriber("seek_thermal",
-                                              std_msgs.mgs.Image,
-                                              self.process_seek_thermal)
-        self._aruco_detector = rospy.Subscriber("marker_detector/detection",
-                                              std,
-                                              self.process_aruco_detector)
-        self._neopixel = rospy.Publisher("rpi_neopixel",
-                                         NeopixelMessage,
-                                         queue_size=1)
-        self._raspicam_buffer = rospy.Publisher("raspicam_buffer",
-                                         std_msgs.msg.Image,
-                                         queue_size=1)
+#        self._distance_sensor = rospy.Subscriber("distance_sensor",
+#                                                 std_msgs.msg.Float32,
+#                                                 self.process_distance_sensor)
+#        self._seek_thermal = rospy.Subscriber("seek_thermal",
+#                                              std_msgs.mgs.Image,
+#                                              self.process_seek_thermal)
+#        self._aruco_detector = rospy.Subscriber("marker_detector/detection",
+#                                              std,
+#                                              self.process_aruco_detector)
+#        self._neopixel = rospy.Publisher("rpi_neopixel",
+#                                         NeopixelMessage,
+#                                         queue_size=1)
+#        self._camera_feeds = rospy.Subscriber("camera_feeds",
+#                                         std_msgs.msg.Image,
+#                                         self.process_camera_feeds,
+#                                         queue_size=1)
         self._movement = rospy.Publisher("move_it",
                                          movMsg,
                                          queue_size=1)
-        self._can_detector = rospy.Subscriber("can_detector/detection",
-                                              CanDetection,
-                                              self.process_can_detector)
+#        self._can_detector = rospy.Subscriber("can_detector/detection",
+#                                              CanDetection,
+#                                              self.process_can_detector)
 
 
         # Init state machine
@@ -53,6 +54,10 @@ class Controller(object):
 
     def look_for_can(self):
         rospy.loginfo("Looking for can")
+        while True:
+            rospy.loginfo("Turning 5 degrees")
+            self._movement.publish(movMsg(0, 5, 0))
+            time.sleep(SLEEP_LOOK_FOR_CAN)
 
     def move_to_can(self):
         rospy.loginfo("Moving to can")
@@ -70,21 +75,27 @@ class Controller(object):
         rospy.loginfo("Sleeping for {} seconds".format(SLEEP_TIME))
         time.sleep(SLEEP_TIME)
 
-    def run(self):
-        for i in range(0, 20):
-            self._state_machine.next_state()
-
-    def process_distance_sensor(distance):
+    def process_distance_sensor(self, distance):
         rospy.logdebug("Distance received: {} cm".format(distance))
 
-    def process_seek_thermal(heat_image):
+    def process_seek_thermal(self, heat_image):
         rospy.logdebug("Heat image received")
 
-    def process_aruco_detector(aruco):
+    def process_aruco_detector(self, aruco):
         rospy.logdebug("Aruco received")
 
-    def process_can_detector(can):
+    def process_can_detector(self, can):
         rospy.logdebug("Can detection received")
+
+    def process_camera_feeds(self, feed):
+        rospy.logdebug("Camera feed received")
+
+    def run(self):
+        """
+        Run method which operates the state changes.
+        """
+        for i in range(0, 10):
+            self._state_machine.next_state()
 
 # Start controller
 if __name__ == "__main__":
