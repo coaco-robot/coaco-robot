@@ -4,6 +4,7 @@ import rospy
 import math
 from rosmovement.msg import movMsg
 from geometry_msgs.msg import Twist
+from std_msgs.msg import UInt8
 
 class Movement:
     def __init__(self):
@@ -19,6 +20,7 @@ class Movement:
             self.velocity_publisher = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)
         else:
             self.velocity_publisher = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
+        self.grabber_publisher = rospy.Publisher('grabber', UInt8, queue_size=10)
         rospy.spin()
 
     def processMovement(self, msg):
@@ -26,6 +28,7 @@ class Movement:
         angle = msg.angle * self.anglefactor
 
         vel_msg = Twist()
+        grab_msg = UInt8()
 
         vel_msg.linear.x = 0
         vel_msg.linear.y = 0
@@ -33,6 +36,13 @@ class Movement:
         vel_msg.angular.x = 0
         vel_msg.angular.y = 0
         vel_msg.angular.z = 0
+        
+        if msg.open == 1:
+            grab_msg.data = 180
+            self.grabber_publisher.publish(grab_msg)
+        elif msg.open == 0:
+            grab_msg.data = 50
+            self.grabber_publisher.publish(grab_msg)
 
         angular_speed = self.rspeed*2*math.pi/360
         relative_angle = abs(angle)*2*math.pi/360
@@ -67,6 +77,7 @@ class Movement:
 
         vel_msg.linear.x = 0
         self.velocity_publisher.publish(vel_msg)
+        
 
 if __name__ == '__main__':
     try:
