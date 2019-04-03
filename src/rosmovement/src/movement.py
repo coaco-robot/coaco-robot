@@ -41,7 +41,7 @@ class Movement:
             grab_msg.data = 60
             self.grabber_publisher.publish(grab_msg)
         elif msg.open == 1: # Close the gripper
-            grab_msg.data = 125
+            grab_msg.data = 81
             self.grabber_publisher.publish(grab_msg)
 
         angular_speed = self.rspeed*2*math.pi/360
