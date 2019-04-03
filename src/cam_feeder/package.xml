@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>can_detector</name>
+  <name>cam_feeder</name>
   <version>0.0.0</version>
-  <description>The can_detector package</description>
+  <description>The cam_feeder package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
@@ -58,6 +58,7 @@
   <exec_depend>roscpp</exec_depend>
   <exec_depend>rospy</exec_depend>
   <exec_depend>std_msgs</exec_depend>
+  <exec_depend>raspicam_node</exec_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->
