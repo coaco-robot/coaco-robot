@@ -1,3 +1,3 @@
-float64 distance
-int64 angle
-int64 open
+float32 distance
+int16 angle
+uint8 open

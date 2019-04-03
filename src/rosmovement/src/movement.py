@@ -9,7 +9,7 @@ from std_msgs.msg import UInt8
 class Movement:
     def __init__(self):
         self.velocity_publisher=False
-        self.is_simulation=True
+        self.is_simulation=False
         self.anglefactor = 0.45
         self.distancefactor = 0.04/8.8
         self.speed = 0.1
@@ -37,10 +37,10 @@ class Movement:
         vel_msg.angular.y = 0
         vel_msg.angular.z = 0
         
-        if msg.open == 1:
-            grab_msg.data = 180
+        if msg.open == 2:
+            grab_msg.data = 150
             self.grabber_publisher.publish(grab_msg)
-        elif msg.open == 0:
+        elif msg.open == 1:
             grab_msg.data = 50
             self.grabber_publisher.publish(grab_msg)
 
