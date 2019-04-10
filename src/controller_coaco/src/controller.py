@@ -78,20 +78,23 @@ class Controller(object):
             self._movement.publish(movMsg(1, 0, NOTHING_GRABBER))
             time.sleep(SLEEP_MOVE_TOWARDS_CAN)
             if self.has_reached_can:
-                self._movement.publish(movMsg(0, 0, CLOSE_GRABBER))
-                time.sleep(SLEEP_MOVE_TOWARDS_CAN)
                 break
+
         # We're at our can, let's grab it!
         self.next_state()
 
     def grab_can(self):
         rospy.loginfo("Grabbing can")
+        self._movement.publish(movMsg(0, 0, CLOSE_GRABBER))
+        time.sleep(SLEEP_GRAB_CAN)
 
     def move_to_fridge(self):
         rospy.loginfo("Moving to fridge")
 
     def drop_can(self):
         rospy.loginfo("Dropping can")
+        self._movement.publish(movMsg(0, 0, OPEN_GRABBER))
+        time.sleep(SLEEP_DROP_CAN)
 
     def sleep(self):
         rospy.loginfo("Sleeping for {} seconds".format(SLEEP_TIME))
