@@ -7,12 +7,13 @@ from detector import Detector
 from can_detector.msg import CanDetection
 from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import CompressedImage, Image
+from cam_feeder.msg import CamFeed
 
 class CanDetector:
     def __init__(self):
 
         # Subscribe to raspicam feed
-        self.subscriber = rospy.Subscriber('raspicam_node/image/compressed', CompressedImage, self.callback)
+        self.subscriber = rospy.Subscriber('cam_feeder/image', CamFeed, self.callback)
         
         # Create publisher to publish bounding boxes
         self.bb_pub = rospy.Publisher('can_detector/detection', CanDetection, queue_size=1)
@@ -29,13 +30,13 @@ class CanDetector:
 
     def callback(self, data):
         # Convert image from topic to OpenCV
-        cv_image = self.str2cv(data.data)
+        cv_image = self.str2cv(data.image)
     
         output_frame, bb = self.detector.detect_can(cv_image)
 
         if bb:
             print("Found can")
-            msg = self.construct_msg(data.data, output_frame, bb)
+            msg = self.construct_msg(data.image, output_frame, bb, data.id)
             self.bb_pub.publish(msg)
 
 
@@ -43,11 +44,10 @@ class CanDetector:
         self.out_pub.publish(self.bridge.cv2_to_imgmsg(cv_image, "bgr8"))
 
 
-    def construct_msg(self, f_in, f_out, bb):
+    def construct_msg(self, f_in, f_out, bb, frame_id):
         """ Construct message of type CanDetection """
         msg = CanDetection()
-        msg.source_data = f_in
-        msg.result_data = self.cv2str(f_out)
+        msg.frame_id = frame_id
         msg.bb_x = bb[0]
         msg.bb_y = bb[1]
         msg.bb_width = bb[2]
