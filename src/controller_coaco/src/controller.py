@@ -32,9 +32,9 @@ class Controller(object):
         self._movement = rospy.Publisher("move_it",
                                          movMsg,
                                          queue_size=1)
-#        self._can_detector = rospy.Subscriber("can_detector/detection",
-#                                              CanDetection,
-#                                              self.process_can_detector)
+        self._can_detector = rospy.Subscriber("can_detector/detection",
+                                              CanDetection,
+                                              self.process_can_detector)
 
 
         # Init state machine
@@ -47,7 +47,8 @@ class Controller(object):
         self._state_machine.add_state(States.SLEEP, self.sleep)
 
         # Processed data
-        self.has_found_can = None
+        self.has_found_can = False 
+        self.can_coordinates = (0, 0, 0, 0) # x, y, width, height
 
         # Start running
         self.run()
@@ -67,7 +68,7 @@ class Controller(object):
                 break
 
         # Can found, let's move!
-        self.next_state()
+        self._state_machine.next_state()
 
     def move_to_can(self):
         rospy.loginfo("Moving to can")
@@ -81,7 +82,7 @@ class Controller(object):
                 break
 
         # We're at our can, let's grab it!
-        self.next_state()
+        self._state_machine.next_state()
 
     def grab_can(self):
         rospy.loginfo("Grabbing can")
@@ -111,16 +112,14 @@ class Controller(object):
 
     def process_can_detector(self, can):
         rospy.logdebug("Can detection received")
-
-    def process_camera_feeds(self, feed):
-        rospy.logdebug("Camera feed received")
+        self.has_found_can = True
+        self.can_coordinates = ()
 
     def run(self):
         """
         Run method which operates the state changes.
         """
-        for i in range(0, 10):
-            self._state_machine.next_state()
+        self._state_machine.next_state()
 
 # Start controller
 if __name__ == "__main__":
