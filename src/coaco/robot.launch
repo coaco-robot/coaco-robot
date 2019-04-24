@@ -5,4 +5,5 @@
     <node name="can_detector" pkg="can_detector" type="can-detector.py" output="screen" respawn="true" />
     <node name="cam_feeder" pkg="cam_feeder" type="cam-feeder.py" output="screen" respawn="true" />
     <node name="rosmovement" pkg="rosmovement" type="movement.py" output="screen" respawn="true" />
+    <node name="controller" pkg="controller_coaco" type="controller.py" output="screen" respawn="true" />
 </launch>

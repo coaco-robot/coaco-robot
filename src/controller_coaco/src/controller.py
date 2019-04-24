@@ -2,7 +2,7 @@
 import rospy
 import time
 import std_msgs
-from constants import States, SLEEP_TIME
+from constants import *
 from state_machine import StateMachine
 from can_detector.msg import CanDetection
 from rpi_neopixel.msg import NeopixelMessage
@@ -35,16 +35,17 @@ class Controller(object):
         self._can_detector = rospy.Subscriber("can_detector/detection",
                                               CanDetection,
                                               self.process_can_detector)
+        self.has_reached_can = False
 
 
         # Init state machine
-        self._state_machine = StateMachine(States.INIT, self.init_robot)
-        self._state_machine.add_state(States.LOOK_FOR_CAN, self.look_for_can)
-        self._state_machine.add_state(States.MOVE_TO_CAN, self.move_to_can)
-        self._state_machine.add_state(States.GRAB_CAN, self.grab_can)
-        self._state_machine.add_state(States.MOVE_TO_FRIDGE, self.move_to_fridge)
-        self._state_machine.add_state(States.DROP_CAN, self.drop_can)
-        self._state_machine.add_state(States.SLEEP, self.sleep)
+       # self._state_machine = StateMachine(States.INIT, self.init_robot)
+       # self._state_machine.add_state(States.LOOK_FOR_CAN, self.look_for_can)
+       # self._state_machine.add_state(States.MOVE_TO_CAN, self.move_to_can)
+       # self._state_machine.add_state(States.GRAB_CAN, self.grab_can)
+       # self._state_machine.add_state(States.MOVE_TO_FRIDGE, self.move_to_fridge)
+       # self._state_machine.add_state(States.DROP_CAN, self.drop_can)
+       # self._state_machine.add_state(States.SLEEP, self.sleep)
 
         # Processed data
         self.has_found_can = False 
@@ -65,10 +66,9 @@ class Controller(object):
             self._movement.publish(movMsg(0, 5, NOTHING_GRABBER))
             time.sleep(SLEEP_LOOK_FOR_CAN)
             if self.has_found_can:
-                break
+                rospy.loginfo("End of turns")
+                return
 
-        # Can found, let's move!
-        self._state_machine.next_state()
 
     def move_to_can(self):
         rospy.loginfo("Moving to can")
@@ -79,10 +79,8 @@ class Controller(object):
             self._movement.publish(movMsg(1, 0, NOTHING_GRABBER))
             time.sleep(SLEEP_MOVE_TOWARDS_CAN)
             if self.has_reached_can:
-                break
-
-        # We're at our can, let's grab it!
-        self._state_machine.next_state()
+                rospy.loginfo("Can detection OK, stoping")
+                return 
 
     def grab_can(self):
         rospy.loginfo("Grabbing can")
@@ -119,7 +117,9 @@ class Controller(object):
         """
         Run method which operates the state changes.
         """
-        self._state_machine.next_state()
+        #self._state_machine.next_state()
+        self.look_for_can()
+        self.move_to_can()
 
 # Start controller
 if __name__ == "__main__":
