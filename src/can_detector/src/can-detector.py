@@ -36,7 +36,7 @@ class CanDetector:
 
         if bb:
             print("Found can")
-            msg = self.construct_msg(data.data, output_frame, bb, data.id)
+            msg = self.construct_msg(data.image, output_frame, bb, data.id)
             self.bb_pub.publish(msg)
 
 
