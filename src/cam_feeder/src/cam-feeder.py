@@ -12,7 +12,7 @@ class CamFeeder:
 
         # Subscribe to raspicam feed
         self.cam_subscriber = rospy.Subscriber('raspicam_node/image/compressed', CompressedImage, self.cam_callback)
-        self.term_subscriber = rospy.Subscriber('seek/image/compressed', CompressedImage, self.term_callback)
+        #self.term_subscriber = rospy.Subscriber('seek/image/compressed', CompressedImage, self.term_callback)
 
         # Create publisher with detected frames
         self.cam_pub = rospy.Publisher('cam_feeder/image', CamFeed, queue_size=1)
